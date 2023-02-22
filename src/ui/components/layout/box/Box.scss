@@ -1,0 +1,59 @@
+@mixin Box {
+  display: flex;
+}
+
+.BoxFullSize {
+  height: 100%;
+  width: 100%;
+}
+
+.VBox {
+  @include Box();
+  flex-direction: column;
+}
+
+.Vbox_Reverse {
+  @include Box();
+  flex-direction: column-reverse;
+}
+
+.HBox {
+  @include Box();
+  flex-direction: row;
+}
+
+.HBox_Reverse {
+  @include Box();
+  flex-direction: row-reverse;
+}
+
+.CenterBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.BoxJustify_Start {
+  justify-content: start;
+}
+
+.BoxJustify_End {
+  justify-content: end;
+}
+
+.BoxJustify_Center {
+  justify-content: center;
+}
+
+.BoxJustify_Between {
+  justify-content: space-between;
+}
+
+.BoxJustify_Around {
+  justify-content: space-around;
+}
+
+.BoxJustify_Evenly {
+  justify-content: space-evenly;
+}
