@@ -1,3 +1,4 @@
+import "./Section.scss"
 import {DivProps} from "../../../types/PropsTypes";
 import {VBox} from "../box/Box";
 import {maybe} from "../../../../core/Option";

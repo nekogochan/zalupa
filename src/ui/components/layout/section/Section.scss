@@ -1,9 +1,14 @@
 .Section {
-  .header {
+  border: 1px solid gray;
+  padding: 4px;
+  margin: 8px;
 
+  .header {
+    font-size: 0.75rem;
+    font-weight: lighter;
   }
 
   .content {
-
+    margin-top: 8px;
   }
 }
