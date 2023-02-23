@@ -1,4 +1,4 @@
-export class ImageDataProcessor {
+export class PlainImageData {
 
     imageData: ImageData;
 

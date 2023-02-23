@@ -1,25 +1,19 @@
 import {Section} from "../../components/layout/section/Section";
 import {ImageInput} from "../../components/input/image/ImageInput";
+import {VBox} from "../../components/layout/box/Box";
+import {StringArt} from "../../../model/stringart/StringArt";
+import {SingleProp} from "../../ReactUtils";
 
-export type Menu_props = {
-    data: {
-        img?: HTMLImageElement,
-    },
-    on: {
-        ebnut: () => void
-    }
-}
-
-export function StringArtMenu(_: Menu_props) {
-    return <>
+export function StringArtMenu({stringArt}: SingleProp<StringArt, "stringArt">) {
+    return <VBox className={"StringArtMenu"}>
         <Section header={"Изображение"}>
             <ImageInput style={{
                 width: "250px",
                 height: "250px"
-            }} onFilePick={x => console.log(x)}/>
+            }} onFilePick={x => stringArt.data.img = x}/>
         </Section>
         <Section header={"Ёбнем?"}>
-            <button onClick={_.on.ebnut}>ёбнем</button>
+            <button onClick={stringArt.processor.run}>ёбнем</button>
         </Section>
-    </>
+    </VBox>
 }

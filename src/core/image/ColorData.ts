@@ -2,9 +2,9 @@ import {maybe} from "../Option";
 import {initDoubleArr} from "../ArrayUtil";
 import {deepClone} from "../CommonUtil";
 
-export class ColorDataProcessor {
+export class ColorData {
     static emptyOfSize(width: number, height: number) {
-        return new ColorDataProcessor(initDoubleArr(width, height));
+        return new ColorData(initDoubleArr(width, height));
     }
 
     constructor(data: number[][]) {
@@ -52,7 +52,7 @@ export class ColorDataProcessor {
         return x;
     }
 
-    clone(): ColorDataProcessor {
-        return new ColorDataProcessor(deepClone(this.data));
+    clone(): ColorData {
+        return new ColorData(deepClone(this.data));
     }
 }
