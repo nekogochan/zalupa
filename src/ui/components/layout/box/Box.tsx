@@ -1,11 +1,10 @@
 import React, {CSSProperties, ReactElement, ReactNode} from "react";
 import "./Box.scss";
 import {BoxJustify} from "./BoxJustify";
-import {Property} from "csstype";
 import {maybe, some} from "../../../../core/Option";
-import {DivProps} from "../../../types/PropsTypes";
+import {HtmlNodeProps} from "../../../ReactUtils";
 
-export type Box_props = DivProps & {
+export type Box_props = HtmlNodeProps<HTMLDivElement> & {
     fullSize?: boolean,
 }
 
@@ -21,20 +20,20 @@ export type SingleBox_props = Box_props & {
 
 type BoxInfo = {
     children: ReactNode | undefined,
-    divProps: DivProps
+    divProps: HtmlNodeProps<HTMLDivElement>
 }
 
 class BoxInfoBuilder {
     boxInfo: BoxInfo;
 
-    constructor(_: Box_props) {
+    constructor({children, fullSize, ...rest}: Box_props) {
         this.boxInfo = {
-            children: _.children,
-            divProps: {..._}
+            children: children,
+            divProps: rest
         }
 
         this.modifyStyle(s => {
-            if (_.fullSize) {
+            if (fullSize) {
                 if (maybe(s.width).isEmpty()) {
                     s.width = "100%";
                 }
@@ -60,6 +59,7 @@ class BoxInfoBuilder {
         if (justify) {
             this.addCssClass(justify.toCssClass());
         }
+        // noinspection SuspiciousTypeOfGuard
         if (spacing && this.boxInfo.children instanceof Array) {
             let children = new Array(this.boxInfo.children.length * 2 - 1);
             for (let i = 0; i < this.boxInfo.children.length - 1; i++) {

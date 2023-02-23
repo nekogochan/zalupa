@@ -1,9 +1,9 @@
 import "./Section.scss"
-import {DivProps} from "../../../types/PropsTypes";
 import {VBox} from "../box/Box";
 import {maybe} from "../../../../core/Option";
+import {HtmlNodeProps} from "../../../ReactUtils";
 
-export type Section_props = DivProps & {
+export type Section_props = HtmlNodeProps<HTMLDivElement> & {
     header: string,
 }
 

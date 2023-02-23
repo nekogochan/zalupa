@@ -2,7 +2,7 @@ import {CenterBox, HBox, VBox} from "../../components/layout/box/Box";
 import {Canvas} from "../../components/canvas/Canvas";
 import random from "random";
 import {clamp} from "../../../core/math/MathUtil";
-import {Menu} from "./Menu";
+import {StringArtMenu} from "./StringArtMenu";
 
 export function StringArtPage() {
     let r = 0;
@@ -36,7 +36,6 @@ export function StringArtPage() {
             r = clamp(r, 0, 255);
             g = clamp(g, 0, 255);
             b = clamp(b, 0, 255);
-            console.log(r, g, b);
             ctx.fillStyle = `rgb(${[r, g, b].join(',')})`;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
@@ -48,7 +47,7 @@ export function StringArtPage() {
     return (
         <HBox fullSize>
             <VBox fullSize style={{width: "300px"}}>
-                <Menu data={{}} on={{ebnut: ebnut}}/>
+                <StringArtMenu data={{}} on={{ebnut: ebnut}}/>
             </VBox>
             <CenterBox>
                 <Canvas canvasInitializer={initCanvas}/>

@@ -1,17 +1,19 @@
 import {useRef} from "react";
 import {maybe} from "../../../core/Option";
 import {useEffectOnce} from "../../hooks/UseEffectOnce";
+import {HtmlNodeProps} from "../../ReactUtils";
 
-type SimpleCanvas_props = {
+type SimpleCanvas_props = HtmlNodeProps<HTMLCanvasElement> & {
     canvasInitializer: (canvas: HTMLCanvasElement) => void | (() => void)
 }
 
-export function Canvas(_: SimpleCanvas_props) {
+export function Canvas({canvasInitializer, ...rest}: SimpleCanvas_props) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffectOnce(() => {
-        return  _.canvasInitializer(maybe(canvasRef.current).get());
+        return canvasInitializer(maybe(canvasRef.current).get());
     });
 
-    return <canvas ref={canvasRef}/>
+    return <canvas {...rest}
+                   ref={canvasRef}/>
 }
