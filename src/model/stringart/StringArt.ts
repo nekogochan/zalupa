@@ -1,7 +1,10 @@
 import {StringArtData} from "./StringArtData";
-import {StringArtProcessor} from "./StringArtProcessor";
+import {makeObservable} from "../../core/reactive/MakeObservable";
 
 export class StringArt {
-    readonly data = new StringArtData();
-    readonly processor = new StringArtProcessor();
+    readonly data = makeObservable(new StringArtData());
+
+    process() {
+
+    }
 }

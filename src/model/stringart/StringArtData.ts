@@ -1,3 +1,3 @@
 export class StringArtData {
-    img?: HTMLImageElement
+    img?: HTMLImageElement;
 }

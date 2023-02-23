@@ -10,10 +10,12 @@ export function StringArtMenu({stringArt}: SingleProp<StringArt, "stringArt">) {
             <ImageInput style={{
                 width: "250px",
                 height: "250px"
-            }} onFilePick={x => stringArt.data.img = x}/>
+            }} onFilePick={x => {
+                stringArt.data.img = x
+            }}/>
         </Section>
         <Section header={"Ёбнем?"}>
-            <button onClick={stringArt.processor.run}>ёбнем</button>
+            <button onClick={stringArt.process}>ёбнем</button>
         </Section>
     </VBox>
 }

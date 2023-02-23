@@ -7,3 +7,7 @@ export function resizeCanvas(canvas: HTMLCanvasElement, newWidth: number, newHei
     canvas.height = newHeight;
     ctx.putImageData(imgData, 0, 0, 0, 0, newWidth, newHeight);
 }
+
+export function ctx2d(canvas: HTMLCanvasElement) : CanvasRenderingContext2D {
+    return canvas.getContext("2d") as CanvasRenderingContext2D;
+}
