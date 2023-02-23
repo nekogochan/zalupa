@@ -1,3 +1,5 @@
+import * as UUID from "uuid";
+
 export function uuid() {
-    return crypto.randomUUID();
+    return UUID.v4();
 }
