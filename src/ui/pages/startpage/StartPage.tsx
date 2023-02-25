@@ -13,8 +13,9 @@ export type StartPage_props = {
 export function StartPage({onButtonClick}: StartPage_props) {
     const [showSecondRow, setShowSecondRow] = useState(false);
     const [showBtn, setShowBtn] = useState(false);
+    const [btnHovered, setBtnHovered] = useState(false);
 
-    return <Box className={"StartPage"} fullSize>
+    return <Box className={"StartPage " + (btnHovered ? "has-shit-hovered" : "has-shit")} fullSize>
         <Header>
             <PrintedText text={"А не пойти бы тебе нахуй"} delay={50} onComplete={() => setShowSecondRow(true)}/>
             {showSecondRow && <h2>
@@ -24,7 +25,9 @@ export function StartPage({onButtonClick}: StartPage_props) {
         </Header>
         <CenterBox className={"cross-btn-container"}>
             {showBtn
-                ? <button onClick={onButtonClick}>
+                ? <button onClick={onButtonClick}
+                          onMouseEnter={() => setBtnHovered(true)}
+                          onMouseLeave={() => setBtnHovered(false)}>
                     <span></span>
                     <span></span>
                     <span></span>

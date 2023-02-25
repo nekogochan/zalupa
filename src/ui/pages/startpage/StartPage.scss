@@ -4,10 +4,16 @@
   flex-direction: column;
   justify-content: space-evenly;
 
-  &:has(.cross-btn-container button:hover) {
+  &.has-shit-hovered {
     background-color: black;
     color: var(--color);
     transition: background-color 0.5s, color 1s 0.5s;
+  }
+
+  &.has-shit {
+    background-color: white;
+    color: black;
+    transition: background-color 0.5s 0.5s, color 0.5s;
   }
 
   .Header {
