@@ -19,7 +19,7 @@ export function StartPage({onButtonClick}: StartPage_props) {
         <Header>
             <PrintedText text={"А не пойти бы тебе нахуй"} delay={50} onComplete={() => setShowSecondRow(true)}/>
             {showSecondRow && <h2>
-                <PrintedText text={"Сынок ёбаный"} delay={50} onComplete={() => setShowBtn(true)}/>
+                <PrintedText text={"Сынок ёбаный?"} delay={50} onComplete={() => setShowBtn(true)}/>
             </h2>
             }
         </Header>
