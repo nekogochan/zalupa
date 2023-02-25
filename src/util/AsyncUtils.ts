@@ -1,5 +1,5 @@
 export function executePeriodicallyWhileTrue(fn: () => boolean, delay: number): () => void {
-    let currentTimeoutId = 0;
+    let currentTimeoutId!: NodeJS.Timeout;
     function fuckMySelf() {
         currentTimeoutId = setTimeout(() => {
             if (fn()) {
