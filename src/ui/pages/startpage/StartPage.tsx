@@ -1,7 +1,10 @@
 import {useState} from "react";
+import "src/ui/components/beauty/CrossBtn.scss"
 import {PrintedText} from "src/ui/components/dynamic/PrintedText";
 import {Box, CenterBox} from "src/ui/components/layout/box/Box";
 import {Header} from "src/ui/components/layout/header/Header";
+import {emptyReactNode} from "src/ui/ReactUtils";
+import "./StartPage.scss";
 
 export type StartPage_props = {
     onButtonClick: () => void;
@@ -14,15 +17,21 @@ export function StartPage({onButtonClick}: StartPage_props) {
     return <Box className={"StartPage"} fullSize>
         <Header>
             <PrintedText text={"А не пойти бы тебе нахуй"} delay={50} onComplete={() => setShowSecondRow(true)}/>
-            {showSecondRow &&
-                <h2><PrintedText text={"Сынок ёбаный"} delay={50} onComplete={() => setShowBtn(true)}/></h2>}
+            {showSecondRow && <h2>
+                <PrintedText text={"Сынок ёбаный"} delay={50} onComplete={() => setShowBtn(true)}/>
+            </h2>
+            }
         </Header>
-        {showBtn && (
-            <CenterBox fullSize>
-                <button onClick={onButtonClick}>
+        <CenterBox className={"cross-btn-container"}>
+            {showBtn
+                ? <button onClick={onButtonClick}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                     ПОЙТИ НАХУЙ
                 </button>
-            </CenterBox>
-        )}
+                : emptyReactNode}
+        </CenterBox>
     </Box>
 }
