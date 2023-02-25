@@ -11,7 +11,7 @@ export class ColorData {
         this.data = data;
     }
 
-    private readonly data: number[][];
+    readonly data: number[][];
 
     width() {
         return this.data.length;
@@ -54,5 +54,9 @@ export class ColorData {
 
     clone(): ColorData {
         return new ColorData(deepClone(this.data));
+    }
+
+    reverse(): void {
+        this.forEach((x, y, v) => this.set(x, y, 255 - v));
     }
 }

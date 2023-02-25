@@ -1,7 +1,7 @@
 import React, {CSSProperties, ReactElement, ReactNode} from "react";
 import "./Box.scss";
 import {BoxJustify} from "./BoxJustify";
-import {maybe, some} from "../../../../core/Option";
+import {maybe, some} from "../../../../util/Option";
 import {HtmlNodeProps} from "../../../ReactUtils";
 
 export type Box_props = HtmlNodeProps<HTMLDivElement> & {

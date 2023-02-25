@@ -1,7 +1,7 @@
 import "./ImageInput.scss"
-import {maybe} from "../../../../core/Option";
+import {maybe} from "../../../../util/Option";
 import {useState} from "react";
-import {readAsImage} from "../../../../core/FileUtil";
+import {readAsImage} from "../../../../util/FileUtil";
 import {remember} from "../../../hooks/UseEffectOnce";
 import {Box_props, CenterBox} from "../../layout/box/Box";
 

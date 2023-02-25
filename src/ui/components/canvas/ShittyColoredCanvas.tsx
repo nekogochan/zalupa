@@ -1,5 +1,5 @@
 import random from "random";
-import {clamp} from "../../../core/math/MathUtil";
+import {clamp} from "../../../util/math/MathUtil";
 import {Canvas} from "./Canvas";
 import {remember} from "../../hooks/UseEffectOnce";
 

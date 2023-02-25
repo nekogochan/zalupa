@@ -1,5 +1,5 @@
 import {useRef} from "react";
-import {maybe} from "../../../core/Option";
+import {maybe} from "../../../util/Option";
 import {useEffectOnce} from "../../hooks/UseEffectOnce";
 import {HtmlNodeProps} from "../../ReactUtils";
 
