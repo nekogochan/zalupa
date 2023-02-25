@@ -1,9 +1,9 @@
 import {StringArt} from "../core/stringart/StringArt";
-import {maybe} from "../util/Option";
-import {Point} from "../util/math/Points";
-import {toImageData} from "../util/image/ImageUtil";
+import {ctx2d, drawImageGreyscaleShitty} from "../util/CanvasUtil";
 import {imageDataToRgb} from "../util/image/ImageDataUtil";
-import {ctx2d, drawImageGreyscale, drawImageGreyscaleShitty} from "../util/CanvasUtil";
+import {toImageData} from "../util/image/ImageUtil";
+import {Point} from "../util/math/Points";
+import {maybe} from "../util/Option";
 
 export class StringArtModel {
 

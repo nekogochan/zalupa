@@ -1,11 +1,19 @@
-import "./global.scss";
+import {useState} from "react";
 import {VBox} from "./components/layout/box/Box";
-import {StringArtPage} from "./pages/string_art_generator/StringArtPage";
+import "./global.scss";
+import {StartPage} from "./pages/startpage/StartPage";
+
+function Beauty() {
+    return <p>Говно</p>;
+}
 
 export function App() {
+    const [showBeauty, setShowBeauty] = useState(false);
+
     return (
         <VBox fullSize={true}>
-            <StringArtPage/>
+            {!showBeauty && <StartPage onButtonClick={() => setShowBeauty(true)}/>}
+            {showBeauty && <Beauty/>}
         </VBox>
     )
-}
+}1

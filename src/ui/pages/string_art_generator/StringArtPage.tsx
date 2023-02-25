@@ -1,9 +1,9 @@
-import "./StringArtPage.scss"
-import {HBox} from "../../components/layout/box/Box";
-import {StringArtMenu} from "./StringArtMenu";
-import {StringArtCanvas} from "./StringArtCanvas";
-import {remember} from "../../hooks/UseEffectOnce";
 import {StringArtModel} from "../../../model/StringArtModel";
+import {HBox} from "../../components/layout/box/Box";
+import {remember} from "../../hooks/UseEffectOnce";
+import {StringArtCanvas} from "./StringArtCanvas";
+import {StringArtMenu} from "./StringArtMenu";
+import "./StringArtPage.scss"
 
 export function StringArtPage() {
     const stringArt = remember(() => new StringArtModel())

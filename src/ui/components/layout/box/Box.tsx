@@ -1,8 +1,8 @@
 import React, {CSSProperties, ReactElement, ReactNode} from "react";
-import "./Box.scss";
-import {BoxJustify} from "./BoxJustify";
 import {maybe, some} from "../../../../util/Option";
 import {HtmlNodeProps} from "../../../ReactUtils";
+import "./Box.scss";
+import {BoxJustify} from "./BoxJustify";
 
 export type Box_props = HtmlNodeProps<HTMLDivElement> & {
     fullSize?: boolean,

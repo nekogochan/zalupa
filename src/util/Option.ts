@@ -4,6 +4,7 @@ export type Option<T extends NonNullable<Exclude<any, void>>> = {
     orElse(newVal: T): Option<T>,
     orElseGet(getNewVal: () => T): Option<T>,
     map<R>(mapper: (x: NonNullable<T>) => R): Option<R>,
+    filter(predicate: (x: NonNullable<T>) => boolean): Option<T>
 
     accept(fn: (x: NonNullable<T>) => void): Option<T>,
     ifPresent(fn: (x: NonNullable<T>) => void): Option<T>,
@@ -35,6 +36,10 @@ class Some<T> implements Option<T> {
 
     map<R>(mapper: (x: NonNullable<T>) => R): Option<R> {
         return maybe(mapper(this.val) as NonNullable<R>);
+    }
+
+    filter(predicate: (x: NonNullable<T>) => boolean): Option<T> {
+        return predicate(this.val) ? this : none();
     }
 
     orElse(newVal: T): Option<T> {
@@ -101,6 +106,10 @@ class None<T> implements Option<T> {
 
     isPresent(): boolean {
         return false;
+    }
+
+    filter(predicate: (x: NonNullable<T>) => boolean): Option<T> {
+        return this;
     }
 
     accept(fn: (x: NonNullable<T>) => void): Option<T> {

@@ -1,7 +1,7 @@
 import random from "random";
 import {clamp} from "../../../util/math/MathUtil";
-import {Canvas} from "./Canvas";
 import {remember} from "../../hooks/UseEffectOnce";
+import {Canvas} from "./Canvas";
 
 export function ShittyColoredCanvas() {
     const r = remember(() => [0]);

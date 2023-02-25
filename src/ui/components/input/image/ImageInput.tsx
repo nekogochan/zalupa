@@ -1,9 +1,9 @@
-import "./ImageInput.scss"
-import {maybe} from "../../../../util/Option";
 import {useState} from "react";
 import {readAsImage} from "../../../../util/FileUtil";
+import {maybe} from "../../../../util/Option";
 import {remember} from "../../../hooks/UseEffectOnce";
 import {Box_props, CenterBox} from "../../layout/box/Box";
+import "./ImageInput.scss"
 
 export type ImageInput_props = Box_props & {
     onFilePick: (_: HTMLImageElement) => void,

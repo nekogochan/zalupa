@@ -1,6 +1,6 @@
-import {maybe} from "../Option";
 import {initDoubleArr} from "../ArrayUtil";
 import {deepClone} from "../CommonUtil";
+import {maybe} from "../Option";
 
 export class ColorData {
     static emptyOfSize(width: number, height: number) {

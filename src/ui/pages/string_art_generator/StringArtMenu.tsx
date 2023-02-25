@@ -1,8 +1,8 @@
-import {Section} from "../../components/layout/section/Section";
+import {StringArtModel} from "../../../model/StringArtModel";
 import {ImageInput} from "../../components/input/image/ImageInput";
 import {VBox} from "../../components/layout/box/Box";
+import {Section} from "../../components/layout/section/Section";
 import {SingleProp} from "../../ReactUtils";
-import {StringArtModel} from "../../../model/StringArtModel";
 
 export function StringArtMenu({model}: SingleProp<StringArtModel, "model">) {
     return <VBox className={"StringArtMenu"}>

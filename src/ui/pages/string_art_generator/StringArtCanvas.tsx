@@ -1,10 +1,10 @@
-import {SingleProp} from "../../ReactUtils";
+import {StringArtModel} from "../../../model/StringArtModel";
+import {ctx2d, withStyle} from "../../../util/CanvasUtil";
+import {uuid} from "../../../util/CryptoUtil";
 import {Canvas} from "../../components/canvas/Canvas";
 import {CenterBox} from "../../components/layout/box/Box";
 import {remember} from "../../hooks/UseEffectOnce";
-import {uuid} from "../../../util/CryptoUtil";
-import {StringArtModel} from "../../../model/StringArtModel";
-import {ctx2d, withStyle} from "../../../util/CanvasUtil";
+import {SingleProp} from "../../ReactUtils";
 
 export function StringArtCanvas({model}: SingleProp<StringArtModel, "model">) {
     const divId = remember(uuid);

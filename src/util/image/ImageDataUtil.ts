@@ -1,7 +1,7 @@
+import {initDoubleArr} from "../ArrayUtil";
+import {ColorData} from "./ColorData";
 import {PlainImageData} from "./PlainImageData";
 import {RgbImageData} from "./RgbImageData";
-import {ColorData} from "./ColorData";
-import {initDoubleArr} from "../ArrayUtil";
 
 export function imageDataToRgb(imageData: ImageData) {
     let id = new PlainImageData(imageData);

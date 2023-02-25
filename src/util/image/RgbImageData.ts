@@ -1,6 +1,6 @@
-import {ColorData} from "./ColorData";
 import {initDoubleArr} from "../ArrayUtil";
 import {verifyEquals} from "../Verify";
+import {ColorData} from "./ColorData";
 
 export class RgbImageData {
     static emptyOfSize(width: number, height: number): RgbImageData {
