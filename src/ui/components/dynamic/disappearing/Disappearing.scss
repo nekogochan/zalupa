@@ -1,0 +1,12 @@
+.Disappearing {
+  animation: fadeout var(--timeout);
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

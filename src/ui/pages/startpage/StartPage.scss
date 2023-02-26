@@ -3,23 +3,32 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  overflow: hidden;
 
-  &.has-shit-hovered {
+  background-color: white;
+  color: black;
+  transition: background-color 0.5s 0.5s, color 0.5s;
+
+  &.has-btn-hovered {
     background-color: black;
+    text-shadow: 0 0 20px var(--color), 0 0 40px var(--color), 0 0 60px var(--color);
     color: var(--color);
-    transition: background-color 0.5s, color 1s 0.5s;
+    transition: background-color 0.5s,
+    color 1s 0.5s,
+    text-shadow 1s 0.5s;
   }
 
-  &.has-shit {
-    background-color: white;
-    color: black;
-    transition: background-color 0.5s 0.5s, color 0.5s;
+  &.has-btn-clicked {
+    .cross-btn-container {
+      button {
+        border: var(--color) 1000px solid;
+        opacity: 0;
+        transition: border 1s, opacity 1s;
+      }
+    }
   }
 
   .Header {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
     flex: 0.4;
   }
 
@@ -27,6 +36,7 @@
     flex: 1;
 
     button {
+      white-space: nowrap;
       animation: fadein 0.5s alternate;
     }
   }
@@ -35,7 +45,7 @@
 @keyframes fadein {
   from {
     opacity: 0;
-    bottom: -200px;
+    bottom: -50px;
   }
   to {
     opacity: 1;
