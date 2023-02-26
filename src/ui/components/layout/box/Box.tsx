@@ -32,16 +32,9 @@ class BoxInfoBuilder {
             divProps: rest
         }
 
-        this.modifyStyle(s => {
-            if (fullSize) {
-                if (maybe(s.width).isEmpty()) {
-                    s.width = "100%";
-                }
-                if (maybe(s.height).isEmpty()) {
-                    s.height = "100%";
-                }
-            }
-        });
+        if (fullSize) {
+            this.addCssClass("full-size");
+        }
     }
 
     build(): ReactElement {

@@ -1,5 +1,5 @@
 .Disappearing {
-  animation: fadeout var(--timeout);
+  animation: fadeout var(--timeout) linear;
 }
 
 @keyframes fadeout {

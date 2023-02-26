@@ -1,21 +1,24 @@
-import "./Disappearing.scss";
-import {ReactNode, useState} from "react";
-import {Box} from "@/ui/components/layout/box/Box";
+import {Box, Box_props} from "@/ui/components/layout/box/Box";
 import {useTimeout} from "@/ui/hooks/UseEffectOnce";
+import {useState} from "react";
+import "./Disappearing.scss";
 
-export type Disappearing_props = {
-    timeout: number,
-    children: ReactNode | ReactNode[]
+export type Disappearing_props = Box_props & {
+    timeout: number
 }
 
-export function Disappearing({children, timeout}: Disappearing_props) {
+export function Disappearing({timeout, children, className, style, ...rest}: Disappearing_props) {
     const [show, setShow] = useState(true);
 
     useTimeout(timeout, () => setShow(false));
 
+    className = [className, "Disappearing"].filter(x => x !== undefined).join(" ");
+    if (!style) {
+        style = {};
+    }
     // @ts-ignore
-    const style: CSSProperties = {"--timeout": `${timeout}ms`};
+    style["--timeout"] = `${timeout}ms`;
     return <>
-        {show && <Box fullSize className={"Disappearing"} style={style}>{children}</Box>}
+        {show && <Box fullSize className={className} style={style} {...rest}>{children}</Box>}
     </>
 }
