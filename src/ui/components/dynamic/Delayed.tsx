@@ -1,5 +1,5 @@
 import {ReactNode, useState} from "react";
-import {useTimeout} from "src/ui/hooks/UseEffectOnce";
+import {useTimeout} from "@/ui/hooks/UseEffectOnce";
 
 export type Delayed_props = {
     delay: number,

@@ -1,6 +1,6 @@
 import "./Headers.scss"
 import {ReactNode} from "react";
-import {HtmlNodeProps, SingleProp} from "src/ui/ReactUtils";
+import {HtmlNodeProps, SingleProp} from "@/ui/ReactUtils";
 
 export type Header_props = SingleProp<ReactNode, "children"> & HtmlNodeProps<HTMLElement>
 

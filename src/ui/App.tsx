@@ -1,5 +1,5 @@
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {Beauty} from "src/ui/pages/beauty/Beauty";
+import {Beauty} from "@/ui/pages/beauty/Beauty";
 import {VBox} from "./components/layout/box/Box";
 import "./global.scss";
 import {StartPage} from "./pages/startpage/StartPage";

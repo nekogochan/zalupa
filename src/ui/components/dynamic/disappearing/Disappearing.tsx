@@ -1,7 +1,7 @@
 import "./Disappearing.scss";
 import {ReactNode, useState} from "react";
-import {Box} from "src/ui/components/layout/box/Box";
-import {useTimeout} from "src/ui/hooks/UseEffectOnce";
+import {Box} from "@/ui/components/layout/box/Box";
+import {useTimeout} from "@/ui/hooks/UseEffectOnce";
 
 export type Disappearing_props = {
     timeout: number,

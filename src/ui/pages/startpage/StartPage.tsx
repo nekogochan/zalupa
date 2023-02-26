@@ -1,10 +1,10 @@
 import {useState} from "react";
-import {CrossBtn} from "src/ui/components/beauty/CrossBtn";
-import "src/ui/components/beauty/CrossBtn.scss"
-import {PrintedText} from "src/ui/components/dynamic/PrintedText";
-import {Box} from "src/ui/components/layout/box/Box";
-import {Header} from "src/ui/components/layout/header/Header";
-import {emptyReactNode} from "src/ui/ReactUtils";
+import {CrossBtn} from "@/ui/components/beauty/CrossBtn";
+import "@/ui/components/beauty/CrossBtn.scss"
+import {PrintedText} from "@/ui/components/dynamic/PrintedText";
+import {Box} from "@/ui/components/layout/box/Box";
+import {Header} from "@/ui/components/layout/header/Header";
+import {emptyReactNode} from "@/ui/ReactUtils";
 import "./StartPage.scss";
 
 export type StartPage_props = {

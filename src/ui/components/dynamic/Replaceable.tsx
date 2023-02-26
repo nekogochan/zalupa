@@ -1,6 +1,6 @@
 import {ReactNode, useState} from "react";
-import {DynamicNode} from "src/ui/components/dynamic/DynamicNode";
-import {remember} from "src/ui/hooks/UseEffectOnce";
+import {DynamicNode} from "@/ui/components/dynamic/DynamicNode";
+import {remember} from "@/ui/hooks/UseEffectOnce";
 
 export type Replaceable_props = {
     dynamicNode: (onComplete: () => void) => DynamicNode,

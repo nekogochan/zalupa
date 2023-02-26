@@ -1,4 +1,4 @@
-import {HtmlNodeProps} from "src/ui/ReactUtils";
+import {HtmlNodeProps} from "@/ui/ReactUtils";
 import "./CrossBtn.scss";
 
 export type CrossBtn_props = HtmlNodeProps<HTMLButtonElement> & {
