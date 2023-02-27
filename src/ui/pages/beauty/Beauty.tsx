@@ -12,7 +12,10 @@ export function Beauty() {
 
     useEffectOnce(() => {
         const canvasBox = document.getElementById(canvasBoxId) as HTMLDivElement;
-        const app = new PIXI.Application();
+        const app = new PIXI.Application({
+            resizeTo: canvasBox
+        });
+        app.renderer.resolution = 1;
         const canvas = app.view;
         const {offsetWidth: w, offsetHeight: h} = canvasBox;
         canvas.width = w;
@@ -26,11 +29,9 @@ export function Beauty() {
             },
             u_resolution: [w, h, w / h]
         }
-        canvas.onmousemove = ({x, y}) => {
-            uniforms.u_mouse = {x, y};
+        canvasBox.onmousemove = ({x, y}) => {
+            uniforms.u_mouse = {x, y: h - y};
         }
-
-        console.log(w, h);
 
         // Build geometry.
         const geometry = new PIXI.Geometry()
@@ -58,18 +59,17 @@ export function Beauty() {
         app.stage.addChild(quad);
 
         let time = 0;
-        app.ticker.add(() => {
-            time += 1 / 60;
+        app.ticker.add((delta) => {
+            time += delta / 60;
             uniforms.u_time = time;
         });
 
         return () => {
-            canvasBox.removeChild(canvas);
+            app.destroy(true);
         }
     });
 
     return <Box fullSize className={"Beauty"}>
         <Box fullSize className={"canvas-container"} id={canvasBoxId}/>
-        <Disappearing className={"black-background"} timeout={3000}/>
     </Box>;
 }
