@@ -1,8 +1,8 @@
 import shader_vertexDefault from "$/shaders/default-vertex.glsl?raw"
 import shader_spaceBackground from "$/shaders/space-background.glsl?raw"
-import {Disappearing} from "@/ui/components/dynamic/disappearing/Disappearing";
 import {Box} from "@/ui/components/layout/box/Box";
 import {remember, useEffectOnce} from "@/ui/hooks/UseEffectOnce";
+import {executePeriodically} from "@/util/AsyncUtils";
 import {uuid} from "@/util/CryptoUtil";
 import * as PIXI from "pixi.js";
 import "./Beauty.scss"
@@ -29,8 +29,21 @@ export function Beauty() {
             },
             u_resolution: [w, h, w / h]
         }
+        let lastMousePos = {x: 0, y: 0}
+        const stopMousePosHandling = executePeriodically(() => {
+            const currPos = {...uniforms.u_mouse};
+            currPos.y = h - currPos.y;
+            const newPos = {
+                x: (lastMousePos.x + currPos.x * 9) / 10,
+                y: (lastMousePos.y + currPos.y * 9) / 10
+            }
+            uniforms.u_mouse = {
+                x: newPos.x,
+                y: h - newPos.y
+            }
+        }, 1000 / 60)
         canvasBox.onmousemove = ({x, y}) => {
-            uniforms.u_mouse = {x, y: h - y};
+            lastMousePos = {x, y};
         }
 
         // Build geometry.
@@ -66,6 +79,7 @@ export function Beauty() {
 
         return () => {
             app.destroy(true);
+            stopMousePosHandling();
         }
     });
 

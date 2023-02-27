@@ -10,3 +10,14 @@ export function executePeriodicallyWhileTrue(fn: () => boolean, delay: number): 
     fuckMySelf();
     return () => clearTimeout(currentTimeoutId);
 }
+
+export function executePeriodically(fn: () => void, delay: number): () => void {
+    let execute = true;
+    executePeriodicallyWhileTrue(() => {
+        if (execute) {
+            fn();
+        }
+        return execute;
+    }, delay);
+    return () => execute = false;
+}

@@ -46,7 +46,7 @@ void main() {
     vec2 p = gl_FragCoord.xy / u_resolution.xx;
     float mouse_dist = 1.0 - distance(u_mouse / u_resolution.xx, p);
     mouse_dist = sin(pow(mouse_dist, 2.0) * 4.0);
-    p *=  8.0;
+    p *= 12.0;
     gl_FragColor = vec4(vec3(mouse_dist), 1.0);
     //The fbm function takes p as its seed (so each pixel looks different) and u_time (so it shifts over u_time)
     float q = fbm(p - u_time * 0.3);
