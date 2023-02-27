@@ -39,7 +39,7 @@ export function StartPage({onComplete}: StartPage_props) {
                             fakeHover={btnClicked}
                             onMouseEnter={() => setBtnHovered(true)}
                             onMouseLeave={() => setBtnHovered(false)}>
-                    I want to see boobs
+                    I want to see ghosts
                 </CrossBtn>
                 : emptyReactNode}
         </div>
