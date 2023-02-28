@@ -52,7 +52,7 @@ export function GlslCanvas({shaderCode, ...rest}: GlslCanvas_props) {
                 y: h - newPos.y
             }
         }, 1000 / 60);
-        canvasBox.onmousemove = canvasBox.onclick = ({x, y}) => {
+        canvasBox.onclick = ({x, y}) => {
             lastMousePos = {x, y};
             document.title = "x = " + x;
         };
