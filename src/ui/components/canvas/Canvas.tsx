@@ -3,7 +3,7 @@ import {maybe} from "../../../util/Option";
 import {useEffectOnce} from "../../hooks/UseEffectOnce";
 import {HtmlNodeProps} from "../../ReactUtils";
 
-type SimpleCanvas_props = HtmlNodeProps<HTMLCanvasElement> & {
+export type SimpleCanvas_props = HtmlNodeProps<HTMLCanvasElement> & {
     canvasInitializer: (canvas: HTMLCanvasElement) => void | (() => void)
 }
 
