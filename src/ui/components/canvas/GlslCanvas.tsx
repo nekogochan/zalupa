@@ -52,7 +52,8 @@ export function GlslCanvas({shaderCode, ...rest}: GlslCanvas_props) {
                 y: h - newPos.y
             }
         }, 1000 / 60);
-        canvasBox.ontouchmove = (ev) => {
+
+        canvasBox.ontouchmove = canvasBox.ontouchstart = (ev) => {
             const {
                 pageX: x,
                 pageY: y
@@ -63,7 +64,6 @@ export function GlslCanvas({shaderCode, ...rest}: GlslCanvas_props) {
         }
         canvasBox.onclick = ({x, y}) => {
             lastMousePos = {x, y};
-            document.title = "x = " + x;
         };
 
         // Build geometry.
