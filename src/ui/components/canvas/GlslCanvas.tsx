@@ -1,4 +1,4 @@
-import shader_vertexDefault from "$/shaders/default-vertex.glsl?raw"
+import shader_vertex_default from "$/shaders/vertex/default.glsl?raw"
 import {Box, Box_props} from "@/ui/components/layout/box/Box";
 import {remember, useEffectOnce} from "@/ui/hooks/UseEffectOnce";
 import {executePeriodically} from "@/util/AsyncUtils";
@@ -102,7 +102,7 @@ export function GlslCanvas({shaderCode, textures = [], ...rest}: GlslCanvas_prop
                 2) // the size of the attribute
             .addIndex([0, 1, 2, 0, 2, 3]);
 
-        const shader = PIXI.Shader.from(shader_vertexDefault, shaderCode, uniforms) as PIXI.MeshMaterial;
+        const shader = PIXI.Shader.from(shader_vertex_default, shaderCode, uniforms) as PIXI.MeshMaterial;
         const quad = new PIXI.Mesh(geometry, shader);
 
         app.stage.addChild(quad);

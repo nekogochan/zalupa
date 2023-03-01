@@ -1,5 +1,6 @@
+import {GhostsDebugNoise} from "@/ui/pages/ghosts/debug/GhostsDegubNoise";
+import {Ghosts} from "@/ui/pages/ghosts/Ghosts";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {Beauty} from "@/ui/pages/beauty/Beauty";
 import {VBox} from "./components/layout/box/Box";
 import "./global.scss";
 import {StartPage} from "./pages/startpage/StartPage";
@@ -10,8 +11,10 @@ export function App() {
     return (
         <VBox fullSize={true}>
             <Routes>
-                <Route index element={<StartPage onComplete={() => navigate("/beauty")}/>}/>
-                <Route path={"/beauty"} element={<Beauty/>}/>
+                <Route index element={<StartPage onComplete={() => navigate("/beauty")}
+                                                 onDebug={() => navigate("/beauty-debug")}/>}/>
+                <Route path={"/beauty"} element={<Ghosts/>}/>
+                <Route path={"/beauty-debug"} element={<GhostsDebugNoise/>}/>
             </Routes>
         </VBox>
     )

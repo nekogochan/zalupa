@@ -9,9 +9,10 @@ import "./StartPage.scss";
 
 export type StartPage_props = {
     onComplete: () => void;
+    onDebug: () => void;
 }
 
-export function StartPage({onComplete}: StartPage_props) {
+export function StartPage({onComplete, onDebug}: StartPage_props) {
     const [showSecondRow, setShowSecondRow] = useState(false);
     const [showBtn, setShowBtn] = useState(false);
     const [btnHovered, setBtnHovered] = useState(false);
@@ -33,6 +34,10 @@ export function StartPage({onComplete}: StartPage_props) {
                 <PrintedText text={"Seek for something?"} delay={50} onComplete={() => setShowBtn(true)}/>
             </h2>}
         </Header>
+        <CrossBtn onClick={onDebug}
+                  color={"red"}>
+            I want to debug
+        </CrossBtn>
         <div className={"main"}>
             {showBtn
                 ? <CrossBtn onClick={onBtnClick}
