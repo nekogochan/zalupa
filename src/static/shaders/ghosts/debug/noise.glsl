@@ -21,8 +21,19 @@ float noise(vec2 n) {
     return mix(mix(rand(b), rand(b + d.yx), f.x), mix(rand(b + d.xy), rand(b + d.yy), f.x), f.y);
 }
 
+float fbm(vec2 n) {
+    //fbm stands for "Fractal Brownian Motion" https://en.wikipedia.org/wiki/Fractional_Brownian_motion
+    float total = 0.0, amplitude = 1.0;
+    for (int i = 0; i < 4; i++) {
+        total += noise(n) * amplitude;
+        n += n;
+        amplitude *= 0.5;
+    }
+    return total;
+}
+
 void main() {
     vec2 p = gl_FragCoord.xy / u_resolution.xx;
-    float n = noise(p);
+    float n = fbm(p);
     gl_FragColor = vec4(vec3(n), 1.0);
 }
