@@ -44,16 +44,16 @@ void main() {
     //This is how "packed" the smoke is in our area. Try changing 8.0 to 1.0, or something else
 
     vec2 p = gl_FragCoord.xy / u_resolution.xx;
-    float mouse_dist = 1.0 - distance(u_mouse / u_resolution.xx, p);
+    float mouse_dist = (1.0 - distance(u_mouse / u_resolution.xx, p)) * 1.2;
     mouse_dist = sin(pow(mouse_dist, 2.0) * 4.0);
-    p *= 12.0;
+    p *= 16.0;
     gl_FragColor = vec4(vec3(mouse_dist), 1.0);
     //The fbm function takes p as its seed (so each pixel looks different) and u_time (so it shifts over u_time)
     float q = fbm(p - u_time * 0.3);
     vec2 r = vec2(fbm(p + q + u_time * speed.x - p.x - p.y), fbm(p + q - u_time * speed.y));
     vec4 c12 = vec4(mix(c1, c2, fbm(p + r)), 0.) * (1.0 - mouse_dist);
-    vec4 c34 = vec4(mix(c3, c4, r.x), 0.) * mouse_dist;
-    vec4 c56 = vec4(mix(c5, c6, r.y), 0.);
+    vec4 c34 = vec4(mix(c3, c4, r.x), 0.) * (mouse_dist);
+    vec4 c56 = vec4(mix(c5, c6, r.y), 0.) * (mouse_dist - 0.5);
     vec4 c = c12 + c34 - c56;
     gl_FragColor = c;
 }

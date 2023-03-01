@@ -6,10 +6,22 @@ import {uuid} from "@/util/CryptoUtil";
 import * as PIXI from "pixi.js";
 
 export type GlslCanvas_props = Box_props & {
-    shaderCode: string
+    shaderCode: string,
+    textures?: []
 }
 
-export function GlslCanvas({shaderCode, ...rest}: GlslCanvas_props) {
+export type GlslCanvas_uniforms = {
+    [key in `u_texture_${number}`]: []
+} & {
+    u_time: number,
+    u_mouse: {
+        x: number,
+        y: number
+    },
+    u_resolution: [number, number, number],
+}
+
+export function GlslCanvas({shaderCode, textures = [], ...rest}: GlslCanvas_props) {
     const boxId = remember(uuid);
 
     useEffectOnce(() => {
@@ -31,7 +43,11 @@ export function GlslCanvas({shaderCode, ...rest}: GlslCanvas_props) {
                 y: 0.0
             },
             u_resolution: [w, h, w / h]
-        };
+        } as GlslCanvas_uniforms;
+
+        textures?.forEach((texture, idx) => {
+            uniforms[`u_texture_${idx}`] = texture
+        });
 
         let lastMousePos = {
             x: 0,
@@ -62,7 +78,7 @@ export function GlslCanvas({shaderCode, ...rest}: GlslCanvas_props) {
                 x, y
             };
         }
-        canvasBox.onclick = ({x, y}) => {
+        canvasBox.onmousemove = ({x, y}) => {
             lastMousePos = {x, y};
         };
 
