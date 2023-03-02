@@ -11,7 +11,15 @@ export function useTimeout(delay: number, fn: () => void) {
     });
 }
 
-export function remember<T>(fn: () => T) {
+export function remember<T>(fn: () => T): T {
     const [state] = useState(fn());
     return state;
+}
+
+export function holder<T>(): { val: T } {
+    return remember(() => {
+        return {
+            val: undefined as unknown as T
+        }
+    });
 }

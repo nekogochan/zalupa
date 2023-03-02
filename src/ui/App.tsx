@@ -11,8 +11,7 @@ export function App() {
     return (
         <VBox fullSize={true}>
             <Routes>
-                <Route index element={<StartPage onComplete={() => navigate("/beauty")}
-                                                 onDebug={() => navigate("/beauty-debug")}/>}/>
+                <Route index element={<StartPage onComplete={() => navigate("/beauty")}/>}/>
                 <Route path={"/beauty"} element={<Ghosts/>}/>
                 <Route path={"/beauty-debug"} element={<GhostsDebugNoise/>}/>
             </Routes>

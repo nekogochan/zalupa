@@ -3,11 +3,13 @@ import {Box, Box_props} from "@/ui/components/layout/box/Box";
 import {remember, useEffectOnce} from "@/ui/hooks/UseEffectOnce";
 import {executePeriodically} from "@/util/AsyncUtils";
 import {uuid} from "@/util/CryptoUtil";
+import {maybe} from "@/util/Option";
 import * as PIXI from "pixi.js";
 
 export type GlslCanvas_props = Box_props & {
     shaderCode: string,
-    textures?: []
+    textures?: [],
+    pixiAppPostConsume?: (app: PIXI.Application) => void
 }
 
 export type GlslCanvas_uniforms = {
@@ -21,8 +23,8 @@ export type GlslCanvas_uniforms = {
     u_resolution: [number, number, number],
 }
 
-export function GlslCanvas({shaderCode, textures = [], ...rest}: GlslCanvas_props) {
-    const boxId = remember(uuid);
+export function GlslCanvas({id, pixiAppPostConsume, shaderCode, textures = [], ...rest}: GlslCanvas_props) {
+    const boxId = remember(() => maybe(id).orElseGet(uuid).get());
 
     useEffectOnce(() => {
         const canvasBox = document.getElementById(boxId) as HTMLDivElement;
@@ -30,6 +32,7 @@ export function GlslCanvas({shaderCode, textures = [], ...rest}: GlslCanvas_prop
             resizeTo: canvasBox
         });
         const canvas = app.view;
+
         const {
             offsetWidth: w,
             offsetHeight: h
@@ -112,6 +115,8 @@ export function GlslCanvas({shaderCode, textures = [], ...rest}: GlslCanvas_prop
             time += delta / 60;
             uniforms.u_time = time;
         });
+
+        pixiAppPostConsume?.call(undefined, app);
 
         return () => {
             app.destroy(true);
