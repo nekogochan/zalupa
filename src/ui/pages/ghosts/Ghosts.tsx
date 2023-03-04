@@ -10,7 +10,7 @@ export function Ghosts() {
         <GlslCanvas shaderCode={shader_spaceBackground} imageUrls={[texture_rand]}
                     extraUniforms={{
                         u_scale: 16.0,
-                        u_rand_factor: isFromMobile() ? 73758.5453 : 63358448.5453
+                        u_rand_factor: isFromMobile() ? 53758.5453 : 63358448.5453
                     }}/>
     </Box>;
 }
