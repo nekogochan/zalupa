@@ -10,15 +10,32 @@ const vec2 speed = vec2(0.7, 0.4);
 
 float rand(vec2 n) {
     //This is just a compounded expression to simulate a random number based on a seed given as n
-    return fract(cos(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
-//    return texture2D(u_texture_0, n).x;
+    return fract(cos(dot(n, vec2(12.9898, 4.1414))) * 438.5453);
+//    return texture2D(u_texture_0, fract(n)).x;
 }
 
 float noise(vec2 n) {
     //Uses the rand function to generate noise
-    const vec2 d = vec2(0.0, 1.0);
-    vec2 b = floor(n), f = smoothstep(vec2(0.0), vec2(1.0), fract(n));
-    return mix(mix(rand(b), rand(b + d.yx), f.x), mix(rand(b + d.xy), rand(b + d.yy), f.x), f.y);
+    vec2 i = floor(n);
+    vec2 f = fract(n);
+
+    // Four corners in 2D of a tile
+    float a = rand(i);
+    float b = rand(i + vec2(1.0, 0.0));
+    float c = rand(i + vec2(0.0, 1.0));
+    float d = rand(i + vec2(1.0, 1.0));
+
+    // Smooth Interpolation
+
+    // Cubic Hermine Curve.  Same as SmoothStep()
+    vec2 u = f*f*(3.0-2.0*f);
+    // u = smoothstep(0.,1.,f);
+
+    // Mix 4 coorners percentages
+    return
+    mix(a, b, u.x) +
+    (c - a) * u.y * (1.0 - u.x) +
+    (d - b) * u.x * u.y;
 }
 
 float fbm(vec2 n) {
@@ -38,13 +55,15 @@ void main() {
     const vec3 c2 = vec3(0.7, 0.1, 0.55);
     const vec3 c3 = vec3(-0.2, 0.1, 0.3);
     const vec3 c4 = vec3(0.5, 0.0, 1.0);
-    const vec3 c5 = vec3(0.1);
-    const vec3 c6 = vec3(0.9);
+    const vec3 c5 = vec3(0.0);
+    const vec3 c6 = vec3(1.0);
 
     //This is how "packed" the smoke is in our area. Try changing 8.0 to 1.0, or something else
 
     vec2 p = gl_FragCoord.xy / u_resolution.xx;
-//    vec3 color = vec3(noise(vec2(p.x + u_time / 10.0, p.y + u_time / 5.0)));
+//    p.x += u_time / 10.0;
+//    p.y += u_time / 5.0;
+//    vec3 color = vec3(noise(p));
 //    gl_FragColor = vec4(color, 1.0);
 //    return;
 
