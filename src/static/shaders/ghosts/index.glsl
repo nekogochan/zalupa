@@ -1,8 +1,7 @@
-precision mediump float;
-
 uniform vec2 u_resolution;
 uniform float u_time;
 uniform vec2 u_mouse;
+uniform sampler2D u_texture_0;
 
 #define alpha 1.0
 #define shift 1.6
@@ -11,7 +10,7 @@ const vec2 speed = vec2(0.7, 0.4);
 
 float rand(vec2 n) {
     //This is just a compounded expression to simulate a random number based on a seed given as n
-    return fract(cos(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+    return texture2D(u_texture_0, n).x;
 }
 
 float noise(vec2 n) {

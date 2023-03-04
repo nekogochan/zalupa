@@ -8,12 +8,12 @@ import * as PIXI from "pixi.js";
 
 export type GlslCanvas_props = Box_props & {
     shaderCode: string,
-    textures?: [],
+    imageUrls?: string[],
     pixiAppPostConsume?: (app: PIXI.Application) => void
 }
 
 export type GlslCanvas_uniforms = {
-    [key in `u_texture_${number}`]: []
+    [key in `u_texture_${number}`]: PIXI.Texture
 } & {
     u_time: number,
     u_mouse: {
@@ -23,7 +23,7 @@ export type GlslCanvas_uniforms = {
     u_resolution: [number, number, number],
 }
 
-export function GlslCanvas({id, pixiAppPostConsume, shaderCode, textures = [], ...rest}: GlslCanvas_props) {
+export function GlslCanvas({id, pixiAppPostConsume, shaderCode, imageUrls = [], ...rest}: GlslCanvas_props) {
     const boxId = remember(() => maybe(id).orElseGet(uuid).get());
 
     useEffectOnce(() => {
@@ -48,8 +48,9 @@ export function GlslCanvas({id, pixiAppPostConsume, shaderCode, textures = [], .
             u_resolution: [w, h, w / h]
         } as GlslCanvas_uniforms;
 
-        textures?.forEach((texture, idx) => {
-            uniforms[`u_texture_${idx}`] = texture
+        imageUrls?.forEach((imageUrl, idx) => {
+            console.log(idx, imageUrl);
+            uniforms[`u_texture_${idx}`] = PIXI.Sprite.from(imageUrl).texture;
         });
 
         let lastMousePos = {
