@@ -1,7 +1,9 @@
 uniform vec3 u_resolution;
 uniform float u_time;
 uniform vec2 u_mouse;
-uniform sampler2D u_texture_0;
+
+uniform float u_scale;
+uniform float u_rand_factor;
 
 #define alpha 1.0
 #define shift 1.6
@@ -10,7 +12,7 @@ const vec2 speed = vec2(0.7, 0.4);
 
 float rand(vec2 n) {
     //This is just a compounded expression to simulate a random number based on a seed given as n
-    return fract(cos(dot(n, vec2(12.9898, 14.1414))) * 63358448.5453);
+    return fract(cos(dot(n, vec2(12.9898, 14.1414))) * u_rand_factor);
 //    return texture2D(u_texture_0, fract(n)).x;
 }
 
@@ -64,7 +66,7 @@ void main() {
 
     float mouse_dist = (1.0 - distance(u_mouse / u_resolution.xx, p)) * 1.2;
     mouse_dist = sin(pow(mouse_dist, 2.0) * 4.0);
-    p *= u_resolution.z;
+    p *= u_scale;
     gl_FragColor = vec4(vec3(mouse_dist), 1.0);
     //The fbm function takes p as its seed (so each pixel looks different) and u_time (so it shifts over u_time)
     float q = fbm(p - u_time * 0.3);

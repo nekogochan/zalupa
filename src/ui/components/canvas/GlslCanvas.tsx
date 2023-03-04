@@ -8,19 +8,12 @@ import * as PIXI from "pixi.js";
 
 type v2 = [number, number];
 type v3 = [number, number, number];
-const X = 0;
-const Y = 1;
-const Z = 2;
 
 export type GlslCanvas_props = Box_props & {
     shaderCode: string,
     imageUrls?: string[],
     pixiAppPostConsume?: (app: PIXI.Application) => void,
-    uniformPostProcessors?: {
-        u_time?: (value: number) => number,
-        u_resolution?: (value: v3) => v3,
-        u_mouse?: (value: v2) => v2
-    }
+    extraUniforms?: object
 }
 
 export type GlslCanvas_uniforms = {
@@ -31,7 +24,7 @@ export type GlslCanvas_uniforms = {
     u_resolution: v3,
 }
 
-export function GlslCanvas({id, pixiAppPostConsume, shaderCode, uniformPostProcessors, imageUrls = [], ...rest}: GlslCanvas_props) {
+export function GlslCanvas({id, pixiAppPostConsume, shaderCode, extraUniforms, imageUrls = [], ...rest}: GlslCanvas_props) {
     const boxId = remember(() => maybe(id).orElseGet(uuid).get());
 
     useEffectOnce(() => {
@@ -50,22 +43,11 @@ export function GlslCanvas({id, pixiAppPostConsume, shaderCode, uniformPostProce
         const uniforms = {
             u_time: 0.0,
             u_mouse: [0.0, 0.0],
-            u_resolution: [0.0, 0.0, 0.0]
+            u_resolution: [0.0, 0.0, 0.0],
+            ...extraUniforms
         } as GlslCanvas_uniforms;
 
-        const maybeWithPP = (prop: keyof (typeof uniforms & typeof uniformPostProcessors)) => {
-            return maybe(uniformPostProcessors)
-                .map(x => x[prop as keyof typeof x] as Function)
-                .map(f => (x: any) => uniforms[prop] = f(x))
-                .orElse(x => uniforms[prop] = x)
-                .get();
-        }
-
-        const setUMouse = maybeWithPP("u_mouse");
-        const setUTime = maybeWithPP("u_time");
-        const setURes = maybeWithPP("u_resolution");
-
-        setURes([w, h, w / h]);
+        uniforms.u_resolution = [w, h, w / h];
 
         imageUrls?.forEach((imageUrl, idx) => {
             console.log(idx, imageUrl);
@@ -83,7 +65,7 @@ export function GlslCanvas({id, pixiAppPostConsume, shaderCode, uniformPostProce
             let ny = lastMousePos.y + cy * 9;
             nx /= 10;
             ny /= 10;
-            setUMouse([nx, h - ny]);
+            uniforms.u_mouse = [nx, h - ny];
         }, 1000 / 60);
 
         canvasBox.ontouchmove = canvasBox.ontouchstart = (ev) => {
@@ -127,7 +109,7 @@ export function GlslCanvas({id, pixiAppPostConsume, shaderCode, uniformPostProce
         let time = 0;
         app.ticker.add((delta) => {
             time += delta / 60;
-            setUTime(time);
+            uniforms.u_time = time;
         });
 
         pixiAppPostConsume?.call(undefined, app);
