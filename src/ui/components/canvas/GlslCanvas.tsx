@@ -6,24 +6,32 @@ import {uuid} from "@/util/CryptoUtil";
 import {maybe} from "@/util/Option";
 import * as PIXI from "pixi.js";
 
+type v2 = [number, number];
+type v3 = [number, number, number];
+const X = 0;
+const Y = 1;
+const Z = 2;
+
 export type GlslCanvas_props = Box_props & {
     shaderCode: string,
     imageUrls?: string[],
-    pixiAppPostConsume?: (app: PIXI.Application) => void
+    pixiAppPostConsume?: (app: PIXI.Application) => void,
+    uniformPostProcessors?: {
+        u_time?: (value: number) => number,
+        u_resolution?: (value: v3) => v3,
+        u_mouse?: (value: v2) => v2
+    }
 }
 
 export type GlslCanvas_uniforms = {
     [key in `u_texture_${number}`]: PIXI.Texture
 } & {
     u_time: number,
-    u_mouse: {
-        x: number,
-        y: number
-    },
-    u_resolution: [number, number, number],
+    u_mouse: v2,
+    u_resolution: v3,
 }
 
-export function GlslCanvas({id, pixiAppPostConsume, shaderCode, imageUrls = [], ...rest}: GlslCanvas_props) {
+export function GlslCanvas({id, pixiAppPostConsume, shaderCode, uniformPostProcessors, imageUrls = [], ...rest}: GlslCanvas_props) {
     const boxId = remember(() => maybe(id).orElseGet(uuid).get());
 
     useEffectOnce(() => {
@@ -41,12 +49,23 @@ export function GlslCanvas({id, pixiAppPostConsume, shaderCode, imageUrls = [], 
 
         const uniforms = {
             u_time: 0.0,
-            u_mouse: {
-                x: 0.0,
-                y: 0.0
-            },
-            u_resolution: [w, h, w / h]
+            u_mouse: [0.0, 0.0],
+            u_resolution: [0.0, 0.0, 0.0]
         } as GlslCanvas_uniforms;
+
+        const maybeWithPP = (prop: keyof (typeof uniforms & typeof uniformPostProcessors)) => {
+            return maybe(uniformPostProcessors)
+                .map(x => x[prop as keyof typeof x] as Function)
+                .map(f => (x: any) => uniforms[prop] = f(x))
+                .orElse(x => uniforms[prop] = x)
+                .get();
+        }
+
+        const setUMouse = maybeWithPP("u_mouse");
+        const setUTime = maybeWithPP("u_time");
+        const setURes = maybeWithPP("u_resolution");
+
+        setURes([w, h, w / h]);
 
         imageUrls?.forEach((imageUrl, idx) => {
             console.log(idx, imageUrl);
@@ -58,19 +77,13 @@ export function GlslCanvas({id, pixiAppPostConsume, shaderCode, imageUrls = [], 
             y: 0
         };
         const stopMousePosHandling = executePeriodically(() => {
-            const currPos = {
-                x: uniforms.u_mouse.x,
-                y: uniforms.u_mouse.y
-            };
-            currPos.y = h - currPos.y;
-            const newPos = {
-                x: (lastMousePos.x + currPos.x * 9) / 10,
-                y: (lastMousePos.y + currPos.y * 9) / 10
-            };
-            uniforms.u_mouse = {
-                x: newPos.x,
-                y: h - newPos.y
-            }
+            let [cx, cy] = uniforms.u_mouse;
+            cy = h - cy;
+            let nx = lastMousePos.x + cx * 9;
+            let ny = lastMousePos.y + cy * 9;
+            nx /= 10;
+            ny /= 10;
+            setUMouse([nx, h - ny]);
         }, 1000 / 60);
 
         canvasBox.ontouchmove = canvasBox.ontouchstart = (ev) => {
@@ -114,7 +127,7 @@ export function GlslCanvas({id, pixiAppPostConsume, shaderCode, imageUrls = [], 
         let time = 0;
         app.ticker.add((delta) => {
             time += delta / 60;
-            uniforms.u_time = time;
+            setUTime(time);
         });
 
         pixiAppPostConsume?.call(undefined, app);

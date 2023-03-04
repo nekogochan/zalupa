@@ -1,4 +1,4 @@
-uniform vec2 u_resolution;
+uniform vec3 u_resolution;
 uniform float u_time;
 uniform vec2 u_mouse;
 uniform sampler2D u_texture_0;
@@ -10,7 +10,7 @@ const vec2 speed = vec2(0.7, 0.4);
 
 float rand(vec2 n) {
     //This is just a compounded expression to simulate a random number based on a seed given as n
-    return fract(cos(dot(n, vec2(12.9898, 4.1414))) * 438.5453);
+    return fract(cos(dot(n, vec2(12.9898, 14.1414))) * 63358448.5453);
 //    return texture2D(u_texture_0, fract(n)).x;
 }
 
@@ -61,15 +61,10 @@ void main() {
     //This is how "packed" the smoke is in our area. Try changing 8.0 to 1.0, or something else
 
     vec2 p = gl_FragCoord.xy / u_resolution.xx;
-//    p.x += u_time / 10.0;
-//    p.y += u_time / 5.0;
-//    vec3 color = vec3(noise(p));
-//    gl_FragColor = vec4(color, 1.0);
-//    return;
 
     float mouse_dist = (1.0 - distance(u_mouse / u_resolution.xx, p)) * 1.2;
     mouse_dist = sin(pow(mouse_dist, 2.0) * 4.0);
-    p *= 16.0;
+    p *= u_resolution.z;
     gl_FragColor = vec4(vec3(mouse_dist), 1.0);
     //The fbm function takes p as its seed (so each pixel looks different) and u_time (so it shifts over u_time)
     float q = fbm(p - u_time * 0.3);
