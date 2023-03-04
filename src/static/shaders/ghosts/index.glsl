@@ -10,7 +10,8 @@ const vec2 speed = vec2(0.7, 0.4);
 
 float rand(vec2 n) {
     //This is just a compounded expression to simulate a random number based on a seed given as n
-    return texture2D(u_texture_0, n).x;
+    return fract(cos(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+//    return texture2D(u_texture_0, n).x;
 }
 
 float noise(vec2 n) {
@@ -43,6 +44,10 @@ void main() {
     //This is how "packed" the smoke is in our area. Try changing 8.0 to 1.0, or something else
 
     vec2 p = gl_FragCoord.xy / u_resolution.xx;
+//    vec3 color = vec3(noise(vec2(p.x + u_time / 10.0, p.y + u_time / 5.0)));
+//    gl_FragColor = vec4(color, 1.0);
+//    return;
+
     float mouse_dist = (1.0 - distance(u_mouse / u_resolution.xx, p)) * 1.2;
     mouse_dist = sin(pow(mouse_dist, 2.0) * 4.0);
     p *= 16.0;

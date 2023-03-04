@@ -34,6 +34,6 @@ float fbm(vec2 n) {
 
 void main() {
     vec2 p = gl_FragCoord.xy / u_resolution.xx;
-    float n = rand(p);
+    float n = noise(p);
     gl_FragColor = vec4(vec3(n), 1.0);
 }

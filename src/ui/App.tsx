@@ -12,7 +12,7 @@ export function App() {
             <Routes>
                 <Route index element={<StartPage/>}/>
                 <Route path={Links.Ghosts} element={<Ghosts/>}/>
-                <Route path={"/beauty-debug"} element={<GhostsDebugNoise/>}/>
+                <Route path={"/ghosts-debug"} element={<GhostsDebugNoise/>}/>
             </Routes>
         </VBox>
     )
